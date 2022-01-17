@@ -41,8 +41,13 @@ export const translate = (word) => {
         }[]
       }
       const object: BaiduResult = JSON.parse(string);
-      const result = object.trans_result[0].dst;
-      console.log(result);
+      if (object.error_code) {
+        console.error(object.error_msg);
+        process.exit(2);
+      } else {
+        console.log(object.trans_result[0].dst);
+        process.exit(0);
+      }
     });
   });
 
