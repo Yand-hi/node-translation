@@ -24,14 +24,20 @@ export const translate = (word) => {
     method: 'GET'
   };
 
-  const req = https.request(options, (res) => {
-    res.on('data', (d) => {
-      process.stdout.write(d);
+  const request = https.request(options, (response) => {
+    let chunks = [];
+    response.on('data', (chunk) => {
+      chunks.push(chunk);
+    });
+    response.on('end', () => {
+      const string = Buffer.concat(chunks).toString();
+      const object = JSON.parse(string);
+      console.log(object);
     });
   });
 
-  req.on('error', (e) => {
+  request.on('error', (e) => {
     console.error(e);
   });
-  req.end();
+  request.end();
 };
