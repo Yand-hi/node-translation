@@ -4,8 +4,12 @@ import md5 = require('md5');
 import {appId, appSecret} from './private';
 
 export const translate = (word) => {
-  console.log(word);
-
+  const errorMap = {
+    52003: '用户认证失败',
+    52004: 'error2',
+    52005: 'error3',
+    unknown: '服务器出错'
+  };
   const salt = Math.random();
   const sign = md5(appId + word + salt + appSecret);
   const query: string = queryString.stringify({
@@ -42,7 +46,7 @@ export const translate = (word) => {
       }
       const object: BaiduResult = JSON.parse(string);
       if (object.error_code) {
-        console.error(object.error_msg);
+        console.error(errorMap[object.error_code] || object.error_msg);
         process.exit(2);
       } else {
         console.log(object.trans_result[0].dst);
