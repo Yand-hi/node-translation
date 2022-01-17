@@ -5,7 +5,6 @@ import {appId, appSecret} from './private';
 
 export const translate = (word) => {
   console.log(word);
-  console.log(md5('123'));
 
   const salt = Math.random();
   const sign = md5(appId + word + salt + appSecret);
@@ -31,8 +30,19 @@ export const translate = (word) => {
     });
     response.on('end', () => {
       const string = Buffer.concat(chunks).toString();
-      const object = JSON.parse(string);
-      console.log(object);
+      type BaiduResult = {
+        error_code?: string;
+        error_msg?: string;
+        from: string;
+        to: string;
+        trans_result: {
+          src: string;
+          dst: string
+        }[]
+      }
+      const object: BaiduResult = JSON.parse(string);
+      const result = object.trans_result[0].dst;
+      console.log(result);
     });
   });
 
