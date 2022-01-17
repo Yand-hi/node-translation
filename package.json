@@ -1,9 +1,9 @@
 {
-  "name": "node-translation",
-  "version": "0.0.1",
-  "main": "index.js",
+  "name": "node-fytool",
+  "version": "0.0.2",
+  "main": "dist/main.js",
   "bin": {
-    "fy": "src/cli.ts"
+    "fy": "dist/cli.js"
   },
   "files": [
     "dist/**/*.js"
