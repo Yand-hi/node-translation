@@ -15,3 +15,5 @@ $ yarn add node-fytool
 ```
 $ fy
 ```
+
+### [npm](https://www.npmjs.com/package/node-fytool)👈
